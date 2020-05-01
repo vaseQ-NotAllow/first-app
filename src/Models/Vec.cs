@@ -8,7 +8,7 @@ namespace covidSim.Models
             Y = y;
         }
 
-        public readonly int X, Y;
-
+        public readonly int X;
+        public readonly int Y;
     }
 }

@@ -8,7 +8,7 @@ namespace covidSim.Controllers
     public class ActionController : Controller
     {
         [HttpPost]
-        public IActionResult Action([FromBody]UserActionDto userAction)
+        public IActionResult Action([FromBody] UserActionDto userAction)
         {
             var game = Game.Instance;
             var person = game.People.Find(p => p.Id == userAction.PersonClicked);

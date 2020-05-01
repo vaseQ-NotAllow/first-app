@@ -11,7 +11,7 @@ namespace covidSim.Controllers
         {
             var game = Game.Instance;
             game = game.GetNextState();
-            return new ObjectResult(game);
+            return Ok(game);
         }
     }
 }

@@ -12,16 +12,4 @@ namespace covidSim.Models
         public HouseCoordinates Coordinates;
         public int ResidentCount = 0;
     }
-
-    public class HouseCoordinates
-    {
-        public HouseCoordinates(Vec leftTopCorner)
-        {
-            LeftTopCorner = leftTopCorner;
-        }
-        
-        public Vec LeftTopCorner;
-        public const int Width = 50;
-        public const int Height = 50;
-    }
 }
