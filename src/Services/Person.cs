@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using covidSim.Models;
 
 namespace covidSim.Services
@@ -56,6 +57,11 @@ namespace covidSim.Services
             var direction = ChooseDirection();
             var delta = new Vec(xLength * direction.X, yLength * direction.Y);
             var nextPosition = new Vec(Position.X + delta.X, Position.Y + delta.Y);
+
+            if (isCoordInForeignHouse(nextPosition))
+            {
+                CalcNextPositionForWalkingPerson();
+            }
 
             if (isCoordInField(nextPosition))
             {
@@ -122,6 +128,12 @@ namespace covidSim.Services
             var beyondField = vec.X > Game.FieldWidth || vec.Y > Game.FieldHeight;
 
             return !(belowZero || beyondField);
+        }
+
+        private bool isCoordInForeignHouse(Vec vec)
+        {
+            var game = Game.Instance;
+            return !game.Map.Houses.Select(x => x.ContainsVec(vec)).Any();
         }
     }
 }
