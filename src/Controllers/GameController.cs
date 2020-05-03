@@ -13,5 +13,6 @@ namespace covidSim.Controllers
             game = game.GetNextState();
             return Ok(game);
         }
+        
     }
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './style.module.css';
 import Field from '../Field';
 import { DELAY, MAX_HEIGHT, MAX_WIDTH } from '../../consts/sizes';
-import { gameStateUrl, userActionUrl } from '../../consts/urls';
+import { gameStateUrl, userActionUrl, gameRestartUrl } from '../../consts/urls';
 import errorHandler from "../../utils/errorHandler";
 import Instruction from "../Instruction";
 
@@ -28,6 +28,10 @@ export default class App extends React.Component {
     render() {
         const { people, map, instructionOpen } = this.state;
         return (
+            <div>
+                <div>
+                    <input type="button" className="button" value="RESTART" onClick={this.sendRestart} />
+                </div>
             <div className={ styles.root }>
                 { instructionOpen && <Instruction onClose={ this.closeInstruction }/> }
                 <h1 className={ styles.title }>COVID-симулятор</h1>
@@ -36,7 +40,20 @@ export default class App extends React.Component {
                     people={ people }
                     onClick={ this.personClick }/>
             </div>
+                </div>
         );
+    }
+    
+    sendRestart = () => {
+        fetch(gameRestartUrl, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                personClicked: 3,
+            }),
+        }).then(errorHandler)
     }
 
     closeInstruction = () => {

@@ -57,14 +57,17 @@ namespace covidSim.Services
             var direction = ChooseDirection();
             var delta = new Vec(xLength * direction.X, yLength * direction.Y);
             var nextPosition = new Vec(Position.X + delta.X, Position.Y + delta.Y);
+            
+            /*while (isCoordInForeignHouse(nextPosition))
+            {
+                xLength = random.Next(MaxDistancePerTurn);
+                yLength = MaxDistancePerTurn - xLength;
+                direction = ChooseDirection();
+                delta = new Vec(xLength * direction.X, yLength * direction.Y);
+                nextPosition = new Vec(Position.X + delta.X, Position.Y + delta.Y);
 
-            if (isCoordInForeignHouse(nextPosition))
-            {
-                CalcNextPositionForWalkingPerson();
-            }
-            else
-            {
-                if (isCoordInField(nextPosition))
+            }*/
+            if (isCoordInField(nextPosition))
                 {
                     Position = nextPosition;
                 }
@@ -72,7 +75,6 @@ namespace covidSim.Services
                 {
                     CalcNextPositionForWalkingPerson();
                 }
-            }
         }
 
         private void CalcNextPositionForGoingHomePerson()
@@ -134,8 +136,7 @@ namespace covidSim.Services
 
         private bool isCoordInForeignHouse(Vec vec)
         {
-            var game = Game.Instance;
-            return game.Map.Houses.Select(x => x.ContainsVec(vec)).Any();
+            return Game.Instance.Map.Houses.Select(x => x.Id!=HomeId && x.ContainsVec(vec)).Any();
         }
     }
 }
