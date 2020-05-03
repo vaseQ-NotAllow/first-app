@@ -62,14 +62,16 @@ namespace covidSim.Services
             {
                 CalcNextPositionForWalkingPerson();
             }
-
-            if (isCoordInField(nextPosition))
-            {
-                Position = nextPosition;
-            }
             else
             {
-                CalcNextPositionForWalkingPerson();
+                if (isCoordInField(nextPosition))
+                {
+                    Position = nextPosition;
+                }
+                else
+                {
+                    CalcNextPositionForWalkingPerson();
+                }
             }
         }
 
@@ -133,7 +135,7 @@ namespace covidSim.Services
         private bool isCoordInForeignHouse(Vec vec)
         {
             var game = Game.Instance;
-            return !game.Map.Houses.Select(x => x.ContainsVec(vec)).Any();
+            return game.Map.Houses.Select(x => x.ContainsVec(vec)).Any();
         }
     }
 }
